@@ -15,7 +15,7 @@ namespace P1
         [STAThread]
         static void Main()
         {
-
+            ///// comment
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new QuanlyCT_TienNghi());
