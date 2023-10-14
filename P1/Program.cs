@@ -18,7 +18,7 @@ namespace P1
             ///// comment
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new QuanlyCT_TienNghi());
+            Application.Run(new QuanlyDichvu());
         }
     }
 }
