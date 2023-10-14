@@ -16,7 +16,7 @@ namespace P1
         {
             InitializeComponent();
         }
-
+        //comment
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
