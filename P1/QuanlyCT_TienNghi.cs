@@ -109,6 +109,7 @@ namespace P1
             dgvCT_TienNghi.CurrentRow.Selected = true;
             cmbMaHopDong.SelectedIndex = cmbMaHopDong.FindString(dgvCT_TienNghi.Rows[e.RowIndex].Cells[0].Value.ToString());
             cmbMaTienNghi.SelectedIndex = cmbMaTienNghi.FindString(dgvCT_TienNghi.Rows[e.RowIndex].Cells[1].Value.ToString());
+            txtGiaThue.Text = dgvCT_TienNghi.Rows[e.RowIndex].Cells[2].Value.ToString();
             txtSoLuong.Text = dgvCT_TienNghi.Rows[e.RowIndex].Cells[3].Value.ToString();
             txtThanhTien.Text = dgvCT_TienNghi.Rows[e.RowIndex].Cells[4].Value.ToString();
         }
@@ -156,7 +157,7 @@ namespace P1
             {
                 MATIENNGHI = cmbMaTienNghi.Text,
                 MAHD = cmbMaHopDong.Text,
-                SOLUONGTN = int.Parse(txtSoLuong.Text),              
+                SOLUONGTN = int.Parse(txtSoLuong.Text),          
             };
             Context.CT_TIENNGHI.Add(ct_tn);
             Context.SaveChanges();
@@ -241,9 +242,9 @@ namespace P1
         }
         public void TinhThanhTien()
         {
-            if (float.TryParse(txtGiaThue.Text, out float GiaThue) && int.TryParse(txtSoLuong.Text, out int soluong))
+            if (float.TryParse(txtGiaThue.Text, out float GiaThue) && int.TryParse(txtSoLuong.Text, out int soLuong))
             {
-                float thanhTien = soluong * GiaThue;
+                float thanhTien = soLuong * GiaThue;
                 txtThanhTien.Text = thanhTien.ToString();
             }
             else
@@ -253,8 +254,8 @@ namespace P1
             for (int i = 0; i < dgvCT_TienNghi.Rows.Count; i++)
             {
                 float giaThue = float.Parse(dgvCT_TienNghi.Rows[i].Cells[2].Value.ToString());
-                int soLuong = int.Parse(dgvCT_TienNghi.Rows[i].Cells[3].Value.ToString());
-                dgvCT_TienNghi.Rows[i].Cells[4].Value = GiaThue * soLuong;
+                int soluong = int.Parse(dgvCT_TienNghi.Rows[i].Cells[3].Value.ToString());
+                dgvCT_TienNghi.Rows[i].Cells[4].Value = giaThue * soluong;
             }
         }
         private void txtSoluong_TextChanged(object sender, EventArgs e)
