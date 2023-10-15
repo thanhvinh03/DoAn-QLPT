@@ -28,9 +28,9 @@ namespace P1.Models
 
         public int? TONKHO { get; set; }
 
-        public double? GIAMUA { get; set; }
-
         public double? GIATHUE { get; set; }
+
+        public double? GIAMUA { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_TIENNGHI> CT_TIENNGHI { get; set; }

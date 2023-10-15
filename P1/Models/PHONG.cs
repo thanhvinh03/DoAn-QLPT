@@ -14,6 +14,7 @@ namespace P1.Models
         {
             CT_HOADON = new HashSet<CT_HOADON>();
             CT_HOPDONG = new HashSet<CT_HOPDONG>();
+            CT_KHACHHANG = new HashSet<CT_KHACHHANG>();
         }
 
         [Key]
@@ -44,6 +45,9 @@ namespace P1.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_HOPDONG> CT_HOPDONG { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CT_KHACHHANG> CT_KHACHHANG { get; set; }
 
         public virtual KHUCVUC KHUCVUC { get; set; }
 

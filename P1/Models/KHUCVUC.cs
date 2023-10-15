@@ -12,6 +12,7 @@ namespace P1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KHUCVUC()
         {
+            DOANHTHU = new HashSet<DOANHTHU>();
             PHONG = new HashSet<PHONG>();
         }
 
@@ -24,6 +25,9 @@ namespace P1.Models
 
         [StringLength(200)]
         public string DIACHIKV { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DOANHTHU> DOANHTHU { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHONG> PHONG { get; set; }

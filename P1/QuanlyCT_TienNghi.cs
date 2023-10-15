@@ -25,18 +25,18 @@ namespace P1
         }
         private void FillFalcultyComboboxMAHD(List<HOPDONG> listHopDong)
         {
-            listHopDong.Insert(0, new HOPDONG());
             cmbMaHopDong.DataSource = listHopDong;
             cmbMaHopDong.ValueMember = "MAHD";
         }
         private void FillFalcultyComboboxMATN(List<TIENNGHI> listTienNghi)
         {
-            listTienNghi.Insert(0, new TIENNGHI());
             cmbMaTienNghi.DataSource = listTienNghi;
             cmbMaTienNghi.ValueMember = "MATIENNGHI";
         }
         private void BindGrid(List<CT_TIENNGHI> listCT_TienNghi)
         {
+            List<TIENNGHI> listTN = Context.TIENNGHI.ToList();
+
             dgvCT_TienNghi.Rows.Clear();
             foreach (var item in listCT_TienNghi)
             {
@@ -44,10 +44,27 @@ namespace P1
                 //dgvCT_TienNghi.Rows[index].Cells[0].Value = item.;
                 dgvCT_TienNghi.Rows[index].Cells[0].Value = item.MAHD;
                 dgvCT_TienNghi.Rows[index].Cells[1].Value = item.MATIENNGHI;
-                dgvCT_TienNghi.Rows[index].Cells[2].Value = item.SOLUONGTN;
-                dgvCT_TienNghi.Rows[index].Cells[3].Value = item.THANHTIENTN;
-
+                dgvCT_TienNghi.Rows[index].Cells[2].Value = item.TIENNGHI.GIATHUE;
+                dgvCT_TienNghi.Rows[index].Cells[3].Value = item.SOLUONGTN;
+                dgvCT_TienNghi.Rows[index].Cells[4].Value = item.THANHTIENTN;
+            }   
+        }
+        private bool rangbuoc()
+        {
+            if (txtSoLuong.Text.Trim() == "" || cmbMaHopDong.SelectedIndex == -1 || cmbMaTienNghi.SelectedIndex == -1 || txtGiaThue.Text.Trim() == "" || txtThanhTien.Text.Trim() == "")
+            {
+                MessageBox.Show("Bạn cần nhập đầy đủ thông tin");
+                return false;
             }
+            if (int.TryParse(txtSoLuong.Text, out int slValue))
+            {
+                if (slValue < 0)
+                {
+                    MessageBox.Show("Số lượng lớn hơn 0");
+                    return false;
+                }
+            }
+            return true;
         }
         private void QuanlyCT_TienNghi_Load(object sender, EventArgs e)
         {
@@ -67,6 +84,7 @@ namespace P1
                         listCT_TN.THANHTIENTN = 0;
                     }
                 }
+               
                 BindGrid(listCT_TienNghi);
 
                 AutoCompleteStringCollection auto = new AutoCompleteStringCollection();
@@ -91,8 +109,8 @@ namespace P1
             dgvCT_TienNghi.CurrentRow.Selected = true;
             cmbMaHopDong.SelectedIndex = cmbMaHopDong.FindString(dgvCT_TienNghi.Rows[e.RowIndex].Cells[0].Value.ToString());
             cmbMaTienNghi.SelectedIndex = cmbMaTienNghi.FindString(dgvCT_TienNghi.Rows[e.RowIndex].Cells[1].Value.ToString());
-            txtSoLuong.Text = dgvCT_TienNghi.Rows[e.RowIndex].Cells[2].Value.ToString();
-            txtThanhTien.Text = dgvCT_TienNghi.Rows[e.RowIndex].Cells[3].Value.ToString();
+            txtSoLuong.Text = dgvCT_TienNghi.Rows[e.RowIndex].Cells[3].Value.ToString();
+            txtThanhTien.Text = dgvCT_TienNghi.Rows[e.RowIndex].Cells[4].Value.ToString();
         }
         public void RefeshData()
         {
@@ -100,6 +118,7 @@ namespace P1
             cmbMaHopDong.SelectedIndex = 0;
             txtSoLuong.Text = "";
             txtThanhTien.Text = "";
+            txtGiaThue.Text = "";
         }
         private void ReLoadDSCT_TN()
         {         
@@ -114,6 +133,10 @@ namespace P1
         {
             return Context.CT_TIENNGHI.FirstOrDefault(tn => tn.MATIENNGHI == MaTN && tn.MAHD == MaHD);
         }
+        private TIENNGHI TimKiemTN(String MaTN)
+        {
+            return Context.TIENNGHI.FirstOrDefault(tn => tn.MATIENNGHI == MaTN);
+        }
         public List<CT_TIENNGHI> timtheoma (string matn, string hopdong)
         {
             var cttn = Context.CT_TIENNGHI.Where(s=> s.MATIENNGHI.Contains(matn) || s.MAHD.Contains(hopdong)).ToList() ;
@@ -121,6 +144,8 @@ namespace P1
         }
         private void btnThem_Click(object sender, EventArgs e)
         {
+            if (rangbuoc() == false)
+                return;
             CT_TIENNGHI timCT_TN = TimKiemCT_TN(cmbMaTienNghi.Text, cmbMaHopDong.Text);
             if (timCT_TN != null)
             {
@@ -141,7 +166,8 @@ namespace P1
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-           
+            if (rangbuoc() == false)
+                return;
             CT_TIENNGHI TimCT_TN = TimKiemCT_TN(cmbMaTienNghi.Text, cmbMaHopDong.Text);
             if (TimCT_TN == null)
             {
@@ -212,6 +238,56 @@ namespace P1
             }
             BindGrid(listcttn);
 
+        }
+        public void TinhThanhTien()
+        {
+            if (float.TryParse(txtGiaThue.Text, out float GiaThue) && int.TryParse(txtSoLuong.Text, out int soluong))
+            {
+                float thanhTien = soluong * GiaThue;
+                txtThanhTien.Text = thanhTien.ToString();
+            }
+            else
+            {
+                txtThanhTien.Text = "0"; // Đặt tổng thành tiền thành 0 nếu không thể tính được
+            }
+            for (int i = 0; i < dgvCT_TienNghi.Rows.Count; i++)
+            {
+                float giaThue = float.Parse(dgvCT_TienNghi.Rows[i].Cells[2].Value.ToString());
+                int soLuong = int.Parse(dgvCT_TienNghi.Rows[i].Cells[3].Value.ToString());
+                dgvCT_TienNghi.Rows[i].Cells[4].Value = GiaThue * soLuong;
+            }
+        }
+        private void txtSoluong_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtSoLuong.Text, out int value) && float.TryParse(txtGiaThue.Text, out float GiaThue))
+            {
+                float tien = value * GiaThue;
+                txtThanhTien.Text = tien.ToString();
+
+                // Cập nhật lại giá trị của dòng hiện tại trong DataGridView
+                if (dgvCT_TienNghi.CurrentRow != null)
+                {
+                    int currentIndex = dgvCT_TienNghi.CurrentRow.Index;
+                    dgvCT_TienNghi.Rows[currentIndex].Cells[3].Value = value; // Cập nhật số lượng
+                    dgvCT_TienNghi.Rows[currentIndex].Cells[4].Value = tien;  // Cập nhật thành tiền
+                }
+            }
+            else
+            {
+                txtThanhTien.Text = "NULL"; // Hoặc gán giá trị mặc định khác
+            }
+        }
+
+        private void cmbMaTienNghi_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedMatn = cmbMaTienNghi.SelectedValue.ToString(); // Lấy mã dịch vụ được chọn
+            TIENNGHI selectedTN = TimKiemTN(selectedMatn); // Tìm dịch vụ tương ứng
+            if (selectedTN != null)
+            {
+                // Nếu dịch vụ được tìm thấy, cập nhật giá dịch vụ vào txtGiadv
+                txtGiaThue.Text = selectedTN.GIATHUE.ToString();
+                TinhThanhTien(); // Sau khi cập nhật giá, tính lại tổng thành tiền
+            }
         }
     }
 }

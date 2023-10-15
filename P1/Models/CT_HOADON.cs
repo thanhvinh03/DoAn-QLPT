@@ -23,10 +23,8 @@ namespace P1.Models
         [StringLength(10)]
         public string MATIENICH { get; set; }
 
-        [Column(TypeName = "date")]
         public DateTime TUNGAY { get; set; }
 
-        [Column(TypeName = "date")]
         public DateTime? DENNGAY { get; set; }
 
         public decimal? CHISOCU { get; set; }

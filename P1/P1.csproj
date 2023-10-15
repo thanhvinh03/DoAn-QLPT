@@ -56,11 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CT_DICHVU.cs" />
-    <Compile Include="Models\CT_DSKHACHHANG.cs" />
     <Compile Include="Models\CT_HOADON.cs" />
     <Compile Include="Models\CT_HOPDONG.cs" />
+    <Compile Include="Models\CT_KHACHHANG.cs" />
     <Compile Include="Models\CT_TIENNGHI.cs" />
     <Compile Include="Models\DICHVU.cs" />
+    <Compile Include="Models\DOANHTHU.cs" />
     <Compile Include="Models\HOADON.cs" />
     <Compile Include="Models\HOPDONG.cs" />
     <Compile Include="Models\KHACHHANG.cs" />
@@ -69,9 +70,9 @@
     <Compile Include="Models\LOAITIENNGHI.cs" />
     <Compile Include="Models\PHONG.cs" />
     <Compile Include="Models\QLPTContextDB.cs" />
-    <Compile Include="Models\sysdiagrams.cs" />
     <Compile Include="Models\TIENICH.cs" />
     <Compile Include="Models\TIENNGHI.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="QuanlyCT_DICHVU.cs">
       <SubType>Form</SubType>
     </Compile>

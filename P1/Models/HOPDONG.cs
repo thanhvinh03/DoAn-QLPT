@@ -21,7 +21,6 @@ namespace P1.Models
         [StringLength(10)]
         public string MAHD { get; set; }
 
-        [Column(TypeName = "date")]
         public DateTime? NGAYLAPHOPDONG { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

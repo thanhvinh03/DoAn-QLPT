@@ -29,12 +29,6 @@
         private void InitializeComponent()
         {
             this.dgvTiennghi = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbLoaiTienNghi = new System.Windows.Forms.ComboBox();
             this.txtGiathue = new System.Windows.Forms.TextBox();
@@ -55,6 +49,12 @@
             this.btnThemTN = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTimKiemTN = new System.Windows.Forms.TextBox();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTiennghi)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -66,8 +66,8 @@
             this.dgvTiennghi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTiennghi.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
-            this.Column2,
             this.Column3,
+            this.Column2,
             this.Column6,
             this.Column4,
             this.Column5});
@@ -79,52 +79,6 @@
             this.dgvTiennghi.Size = new System.Drawing.Size(842, 170);
             this.dgvTiennghi.TabIndex = 12;
             this.dgvTiennghi.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTiennghi_CellClick);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Mã Tiện nghi";
-            this.Column1.MinimumWidth = 8;
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 150;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Loại Tiện Nghi";
-            this.Column2.MinimumWidth = 8;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 150;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Tên Tiện Nghi";
-            this.Column3.MinimumWidth = 8;
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 150;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "Tồn Kho";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Giá Mua";
-            this.Column4.MinimumWidth = 8;
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 150;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Giá Thuê";
-            this.Column5.MinimumWidth = 8;
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 150;
             // 
             // groupBox1
             // 
@@ -161,7 +115,7 @@
             // txtGiathue
             // 
             this.txtGiathue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGiathue.Location = new System.Drawing.Point(125, 88);
+            this.txtGiathue.Location = new System.Drawing.Point(134, 89);
             this.txtGiathue.Margin = new System.Windows.Forms.Padding(2);
             this.txtGiathue.Name = "txtGiathue";
             this.txtGiathue.Size = new System.Drawing.Size(103, 23);
@@ -172,12 +126,12 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(7, 88);
+            this.label5.Location = new System.Drawing.Point(25, 92);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(130, 17);
+            this.label5.Size = new System.Drawing.Size(67, 17);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Giá Thuê Tiện nghi";
+            this.label5.Text = "Giá Thuê";
             // 
             // txtTonKho
             // 
@@ -203,7 +157,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(268, 92);
+            this.label7.Location = new System.Drawing.Point(261, 91);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(62, 17);
@@ -214,12 +168,12 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(268, 63);
+            this.label4.Location = new System.Drawing.Point(261, 63);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(93, 17);
+            this.label4.Size = new System.Drawing.Size(61, 17);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Giá Tiện nghi";
+            this.label4.Text = "Giá Mua";
             // 
             // label6
             // 
@@ -235,18 +189,17 @@
             // txxTentnghi
             // 
             this.txxTentnghi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txxTentnghi.Location = new System.Drawing.Point(125, 55);
+            this.txxTentnghi.Location = new System.Drawing.Point(134, 60);
             this.txxTentnghi.Margin = new System.Windows.Forms.Padding(2);
             this.txxTentnghi.Name = "txxTentnghi";
             this.txxTentnghi.Size = new System.Drawing.Size(103, 23);
             this.txxTentnghi.TabIndex = 1;
-            this.txxTentnghi.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txxTentnghi_KeyPress);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(25, 58);
+            this.label3.Location = new System.Drawing.Point(25, 63);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(96, 17);
@@ -256,7 +209,7 @@
             // txtMatiennghi
             // 
             this.txtMatiennghi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMatiennghi.Location = new System.Drawing.Point(125, 27);
+            this.txtMatiennghi.Location = new System.Drawing.Point(134, 28);
             this.txtMatiennghi.Margin = new System.Windows.Forms.Padding(2);
             this.txtMatiennghi.Name = "txtMatiennghi";
             this.txtMatiennghi.Size = new System.Drawing.Size(103, 23);
@@ -351,6 +304,52 @@
             this.txtTimKiemTN.TabIndex = 13;
             this.txtTimKiemTN.TextChanged += new System.EventHandler(this.txtTimKiemTN_TextChanged);
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Mã Tiện nghi";
+            this.Column1.MinimumWidth = 8;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 150;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Tên Tiện Nghi";
+            this.Column3.MinimumWidth = 8;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Loại Tiện Nghi";
+            this.Column2.MinimumWidth = 8;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 150;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Tồn Kho";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Giá Mua";
+            this.Column4.MinimumWidth = 8;
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 150;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Giá Thuê";
+            this.Column5.MinimumWidth = 8;
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 150;
+            // 
             // QuanlyTienNghi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -401,8 +400,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtTonKho;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;

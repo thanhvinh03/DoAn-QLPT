@@ -10,7 +10,7 @@ namespace P1
     public partial class QuanlyTienNghi : Form
     {
         QLPTContextDB Context;
-       
+
         public QuanlyTienNghi()
         {
             Context = new QLPTContextDB();
@@ -30,8 +30,8 @@ namespace P1
             {
                 int index = dgvTiennghi.Rows.Add();
                 dgvTiennghi.Rows[index].Cells[0].Value = item.MATIENNGHI;
-                dgvTiennghi.Rows[index].Cells[1].Value = item.LOAITIENNGHI.TENLOAITIENNGHI;
-                dgvTiennghi.Rows[index].Cells[2].Value = item.TENTIENNGHI;
+                dgvTiennghi.Rows[index].Cells[1].Value = item.TENTIENNGHI;
+                dgvTiennghi.Rows[index].Cells[2].Value = item.LOAITIENNGHI.TENLOAITIENNGHI;
                 dgvTiennghi.Rows[index].Cells[3].Value = item.TONKHO;
                 dgvTiennghi.Rows[index].Cells[4].Value = item.GIAMUA;
                 dgvTiennghi.Rows[index].Cells[5].Value = item.GIATHUE;
@@ -39,23 +39,49 @@ namespace P1
 
             }
         }
+        private bool rangbuoc()
+        {
+            if (txtMatiennghi.Text == " " || txxTentnghi.Text == "" || txtGiathue.Text == "" || txtGiatiennghi.Text == "" || txtTonKho.Text == "" || cmbLoaiTienNghi.Text == "" ) 
+            {
+                MessageBox.Show("Bạn cần nhập đầy đủ thông tin");
+                return false;
+
+            }
+            if (float.TryParse(txtGiathue.Text, out float gtValue))
+            {
+                if (gtValue <= 0)
+                {
+                    MessageBox.Show("Sai giá");
+                    return false;
+                }
+            }
+            if (float.TryParse(txtGiatiennghi.Text, out float gmValue))
+            {
+                if (gmValue <= 0)
+                {
+                    MessageBox.Show("Sai giá");
+                    return false;
+                }
+            }
+            return true;
+        }
         private void QuanlyTienNghi_Load(object sender, EventArgs e)
         {
-          
-                QLPTContextDB context = new QLPTContextDB();
-                List<TIENNGHI> listTienNghi = Context.TIENNGHI.ToList();
-                List<LOAITIENNGHI> listLoaiTienNghi = Context.LOAITIENNGHI.ToList();
-                FillFalcultyCombobox(listLoaiTienNghi);
-                BindGrid(listTienNghi);
-                AutoCompleteStringCollection auto = new AutoCompleteStringCollection();
-                foreach (var item in listTienNghi)
-                {
-                    auto.Add(item.TENTIENNGHI);
-                    auto.Add(item.MATIENNGHI);
-                }
-                txtTimKiemTN.AutoCompleteCustomSource = auto;
-                txtTimKiemTN.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                txtTimKiemTN.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            QLPTContextDB context = new QLPTContextDB();
+            List<TIENNGHI> listTienNghi = Context.TIENNGHI.ToList();
+            List<LOAITIENNGHI> listLoaiTienNghi = Context.LOAITIENNGHI.ToList();
+            FillFalcultyCombobox(listLoaiTienNghi);
+            BindGrid(listTienNghi);
+            AutoCompleteStringCollection auto = new AutoCompleteStringCollection();
+            foreach (var item in listTienNghi)
+            {
+                auto.Add(item.TENTIENNGHI);
+                auto.Add(item.MATIENNGHI);
+            }
+            txtTimKiemTN.AutoCompleteCustomSource = auto;
+            txtTimKiemTN.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtTimKiemTN.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
         }
 
@@ -66,7 +92,7 @@ namespace P1
             List<LOAITIENNGHI> listLoaiTienNghi = Context.LOAITIENNGHI.ToList();
 
             FillFalcultyCombobox(listLoaiTienNghi);
-            BindGrid(listTienNghi); 
+            BindGrid(listTienNghi);
         }
 
 
@@ -106,21 +132,15 @@ namespace P1
             }
         }
 
-        private void txxTentnghi_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != ' ')
-            {
-                e.Handled = true;
-                MessageBox.Show("Vui lòng chỉ nhập chữ vào ô này.", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
+        
         private TIENNGHI TimKiemTN(String MaTN)
         {
             return Context.TIENNGHI.FirstOrDefault(tn => tn.MATIENNGHI == MaTN);
         }
         private void btnThemTN_Click(object sender, EventArgs e)
         {
-            
+            if (rangbuoc() == false)
+                return;
             TIENNGHI timTN = TimKiemTN(txtMatiennghi.Text);
             if (timTN != null)
             {
@@ -151,12 +171,23 @@ namespace P1
             cmbLoaiTienNghi.SelectedIndex = 0;
             txtTimKiemTN.Text = "";
         }
+        public void RefeshData1()
+        {
+            txtMatiennghi.Text = "";
+            txxTentnghi.Text = "";
+            txtGiathue.Text = "";
+            txtGiatiennghi.Text = "";
+            txtTonKho.Text = "";
+            cmbLoaiTienNghi.SelectedIndex = 0;
+        }
         private TIENNGHI TimKiemMaTN(String matn)
         {
             return Context.TIENNGHI.FirstOrDefault(tn => tn.MATIENNGHI == matn);
         }
         private void btnSuaTN_Click(object sender, EventArgs e)
         {
+            if (rangbuoc() == false)
+                return;
             TIENNGHI TimTN = TimKiemMaTN(txtMatiennghi.Text);
             if (TimTN == null)
             {
@@ -205,22 +236,24 @@ namespace P1
                     MessageBox.Show("Đã lưu thay đổi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     RefeshData();
                 }
-            }
+            }        
         }
 
         private void dgvTiennghi_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-                dgvTiennghi.CurrentRow.Selected =true;
-                txtMatiennghi.Text = dgvTiennghi.Rows[e.RowIndex].Cells[0].Value.ToString(); 
-                cmbLoaiTienNghi.SelectedIndex = cmbLoaiTienNghi.FindString(dgvTiennghi.Rows[e.RowIndex].Cells[1].Value.ToString());
-                txxTentnghi.Text = dgvTiennghi.Rows[e.RowIndex].Cells[2].Value.ToString();
-                txtTonKho.Text = dgvTiennghi.Rows[e.RowIndex].Cells[3].Value.ToString();
-                txtGiatiennghi.Text = dgvTiennghi.Rows[e.RowIndex].Cells[4].Value.ToString();
-                txtGiathue.Text = dgvTiennghi.Rows[e.RowIndex].Cells[5].Value.ToString();
+            dgvTiennghi.CurrentRow.Selected = true;
+            txtMatiennghi.Text = dgvTiennghi.Rows[e.RowIndex].Cells[0].Value.ToString();
+            cmbLoaiTienNghi.SelectedIndex = cmbLoaiTienNghi.FindString(dgvTiennghi.Rows[e.RowIndex].Cells[2].Value.ToString());
+            txxTentnghi.Text = dgvTiennghi.Rows[e.RowIndex].Cells[1].Value.ToString();
+            txtTonKho.Text = dgvTiennghi.Rows[e.RowIndex].Cells[3].Value.ToString();
+            txtGiatiennghi.Text = dgvTiennghi.Rows[e.RowIndex].Cells[4].Value.ToString();
+            txtGiathue.Text = dgvTiennghi.Rows[e.RowIndex].Cells[5].Value.ToString();
         }
 
         private void btnxoati_Click(object sender, EventArgs e)
         {
+            if (rangbuoc() == false)
+                return;
             TIENNGHI TimTN = TimKiemMaTN(txtMatiennghi.Text);
             if (TimTN == null)
             {
@@ -247,6 +280,7 @@ namespace P1
         private void btnLammoiti_Click(object sender, EventArgs e)
         {
             RefeshData();
+
         }
 
         private void txtTimKiemTN_TextChanged(object sender, EventArgs e)
@@ -265,7 +299,7 @@ namespace P1
                 listTienNghi = Context.TIENNGHI.ToList();
             }
             BindGrid(listTienNghi);
-            RefeshData();
+            RefeshData1();
         }
     }
 }

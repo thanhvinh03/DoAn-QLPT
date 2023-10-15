@@ -12,7 +12,7 @@ namespace P1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KHACHHANG()
         {
-            CT_DSKHACHHANG = new HashSet<CT_DSKHACHHANG>();
+            CT_KHACHHANG = new HashSet<CT_KHACHHANG>();
         }
 
         [Key]
@@ -32,6 +32,6 @@ namespace P1.Models
         public string QUEQUAN { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CT_DSKHACHHANG> CT_DSKHACHHANG { get; set; }
+        public virtual ICollection<CT_KHACHHANG> CT_KHACHHANG { get; set; }
     }
 }

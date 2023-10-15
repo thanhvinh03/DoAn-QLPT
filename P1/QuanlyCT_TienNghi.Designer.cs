@@ -32,6 +32,7 @@
             this.dgvCT_TienNghi = new System.Windows.Forms.DataGridView();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -39,6 +40,8 @@
             this.cmbMaHopDong = new System.Windows.Forms.ComboBox();
             this.txtThanhTien = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtGiaThue = new System.Windows.Forms.TextBox();
             this.txtSoLuong = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -72,6 +75,7 @@
             this.dgvCT_TienNghi.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column2,
             this.Column4,
+            this.Column1,
             this.Column3,
             this.Column5});
             this.dgvCT_TienNghi.Location = new System.Drawing.Point(47, 194);
@@ -99,6 +103,12 @@
             this.Column4.ReadOnly = true;
             this.Column4.Width = 150;
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Giá Thuê";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
             // Column3
             // 
             this.Column3.HeaderText = "Số lượng";
@@ -121,6 +131,8 @@
             this.groupBox1.Controls.Add(this.cmbMaHopDong);
             this.groupBox1.Controls.Add(this.txtThanhTien);
             this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.txtGiaThue);
             this.groupBox1.Controls.Add(this.txtSoLuong);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label5);
@@ -137,10 +149,11 @@
             // cmbMaTienNghi
             // 
             this.cmbMaTienNghi.FormattingEnabled = true;
-            this.cmbMaTienNghi.Location = new System.Drawing.Point(108, 90);
+            this.cmbMaTienNghi.Location = new System.Drawing.Point(108, 64);
             this.cmbMaTienNghi.Name = "cmbMaTienNghi";
             this.cmbMaTienNghi.Size = new System.Drawing.Size(121, 21);
             this.cmbMaTienNghi.TabIndex = 2;
+            this.cmbMaTienNghi.SelectedIndexChanged += new System.EventHandler(this.cmbMaTienNghi_SelectedIndexChanged);
             // 
             // cmbMaHopDong
             // 
@@ -171,20 +184,41 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Thành tiền";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(6, 98);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 17);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Giá Thuê";
+            // 
+            // txtGiaThue
+            // 
+            this.txtGiaThue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGiaThue.Location = new System.Drawing.Point(108, 98);
+            this.txtGiaThue.Margin = new System.Windows.Forms.Padding(2);
+            this.txtGiaThue.Name = "txtGiaThue";
+            this.txtGiaThue.Size = new System.Drawing.Size(121, 23);
+            this.txtGiaThue.TabIndex = 1;
+            // 
             // txtSoLuong
             // 
             this.txtSoLuong.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSoLuong.Location = new System.Drawing.Point(321, 30);
+            this.txtSoLuong.Location = new System.Drawing.Point(325, 28);
             this.txtSoLuong.Margin = new System.Windows.Forms.Padding(2);
             this.txtSoLuong.Name = "txtSoLuong";
             this.txtSoLuong.Size = new System.Drawing.Size(103, 23);
             this.txtSoLuong.TabIndex = 1;
+            this.txtSoLuong.TextChanged += new System.EventHandler(this.txtSoluong_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 94);
+            this.label4.Location = new System.Drawing.Point(6, 68);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 17);
@@ -336,12 +370,15 @@
         private System.Windows.Forms.TextBox txtThanhTien;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.ComboBox cmbMaHopDong;
         private System.Windows.Forms.ComboBox cmbMaTienNghi;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtGiaThue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
     }
 }

@@ -8,16 +8,17 @@ namespace P1.Models
     public partial class QLPTContextDB : DbContext
     {
         public QLPTContextDB()
-            : base("name=QLPTContextDB1")
+            : base("name=QLPTContextDB2")
         {
         }
 
         public virtual DbSet<CT_DICHVU> CT_DICHVU { get; set; }
-        public virtual DbSet<CT_DSKHACHHANG> CT_DSKHACHHANG { get; set; }
         public virtual DbSet<CT_HOADON> CT_HOADON { get; set; }
         public virtual DbSet<CT_HOPDONG> CT_HOPDONG { get; set; }
+        public virtual DbSet<CT_KHACHHANG> CT_KHACHHANG { get; set; }
         public virtual DbSet<CT_TIENNGHI> CT_TIENNGHI { get; set; }
         public virtual DbSet<DICHVU> DICHVU { get; set; }
+        public virtual DbSet<DOANHTHU> DOANHTHU { get; set; }
         public virtual DbSet<HOADON> HOADON { get; set; }
         public virtual DbSet<HOPDONG> HOPDONG { get; set; }
         public virtual DbSet<KHACHHANG> KHACHHANG { get; set; }
@@ -25,9 +26,9 @@ namespace P1.Models
         public virtual DbSet<LOAIPHONG> LOAIPHONG { get; set; }
         public virtual DbSet<LOAITIENNGHI> LOAITIENNGHI { get; set; }
         public virtual DbSet<PHONG> PHONG { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TIENICH> TIENICH { get; set; }
         public virtual DbSet<TIENNGHI> TIENNGHI { get; set; }
+        public virtual DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -38,21 +39,6 @@ namespace P1.Models
 
             modelBuilder.Entity<CT_DICHVU>()
                 .Property(e => e.MAHD)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CT_DSKHACHHANG>()
-                .Property(e => e.MAHD)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CT_DSKHACHHANG>()
-                .Property(e => e.IDPHONG)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CT_DSKHACHHANG>()
-                .Property(e => e.MAKH)
                 .IsFixedLength()
                 .IsUnicode(false);
 
@@ -93,11 +79,15 @@ namespace P1.Models
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<CT_HOPDONG>()
-                .HasMany(e => e.CT_DSKHACHHANG)
-                .WithRequired(e => e.CT_HOPDONG)
-                .HasForeignKey(e => new { e.MAHD, e.IDPHONG })
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<CT_KHACHHANG>()
+                .Property(e => e.IDPHONG)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CT_KHACHHANG>()
+                .Property(e => e.MAKH)
+                .IsFixedLength()
+                .IsUnicode(false);
 
             modelBuilder.Entity<CT_TIENNGHI>()
                 .Property(e => e.MATIENNGHI)
@@ -118,6 +108,16 @@ namespace P1.Models
                 .HasMany(e => e.CT_DICHVU)
                 .WithRequired(e => e.DICHVU)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DOANHTHU>()
+                .Property(e => e.STT)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DOANHTHU>()
+                .Property(e => e.MAKV)
+                .IsFixedLength()
+                .IsUnicode(false);
 
             modelBuilder.Entity<HOADON>()
                 .Property(e => e.MAHOADON)
@@ -165,7 +165,7 @@ namespace P1.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<KHACHHANG>()
-                .HasMany(e => e.CT_DSKHACHHANG)
+                .HasMany(e => e.CT_KHACHHANG)
                 .WithRequired(e => e.KHACHHANG)
                 .WillCascadeOnDelete(false);
 
@@ -173,6 +173,11 @@ namespace P1.Models
                 .Property(e => e.MAKV)
                 .IsFixedLength()
                 .IsUnicode(false);
+
+            modelBuilder.Entity<KHUCVUC>()
+                .HasMany(e => e.DOANHTHU)
+                .WithRequired(e => e.KHUCVUC)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<KHUCVUC>()
                 .HasMany(e => e.PHONG)
@@ -224,6 +229,11 @@ namespace P1.Models
                 .WithRequired(e => e.PHONG)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<PHONG>()
+                .HasMany(e => e.CT_KHACHHANG)
+                .WithRequired(e => e.PHONG)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<TIENICH>()
                 .Property(e => e.MATIENICH)
                 .IsFixedLength()
@@ -248,6 +258,16 @@ namespace P1.Models
                 .HasMany(e => e.CT_TIENNGHI)
                 .WithRequired(e => e.TIENNGHI)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.Password)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.Mail)
+                .IsFixedLength()
+                .IsUnicode(false);
         }
     }
 }

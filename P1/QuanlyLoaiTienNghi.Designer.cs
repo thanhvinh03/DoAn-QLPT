@@ -60,7 +60,7 @@
             this.dgvLoaiTienNghi.ReadOnly = true;
             this.dgvLoaiTienNghi.RowHeadersWidth = 62;
             this.dgvLoaiTienNghi.RowTemplate.Height = 28;
-            this.dgvLoaiTienNghi.Size = new System.Drawing.Size(369, 129);
+            this.dgvLoaiTienNghi.Size = new System.Drawing.Size(384, 129);
             this.dgvLoaiTienNghi.TabIndex = 17;
             this.dgvLoaiTienNghi.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLoaiTienNghi_CellClick);
             // 
@@ -194,6 +194,7 @@
             this.txtTenLTN.Name = "txtTenLTN";
             this.txtTenLTN.Size = new System.Drawing.Size(115, 23);
             this.txtTenLTN.TabIndex = 4;
+            this.txtTenLTN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTenLTN_KeyPress);
             // 
             // txtMaLTN
             // 

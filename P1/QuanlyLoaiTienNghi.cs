@@ -172,5 +172,14 @@ namespace P1
             BindGrid(listLoaiTienNghi);
             RefeshData1();
         }
+
+        private void txtTenLTN_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != ' ')
+            {
+                e.Handled = true;
+                MessageBox.Show("Vui lòng chỉ nhập chữ vào ô này.", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }
