@@ -123,9 +123,16 @@ namespace P1
             txtTenLTN.Text = dgvLoaiTienNghi.Rows[e.RowIndex].Cells[1].Value.ToString();
            
         }
-
-        private void btnXoa_Click(object sender, EventArgs e)
+        private TIENNGHI Timkiem(string maltn)
         {
+            return Context.TIENNGHI.FirstOrDefault(tn => tn.MALOAITIENNGHI == maltn);
+        }
+        private CT_TIENNGHI Timkiemcttn(string matn)
+        {
+            return Context.CT_TIENNGHI.FirstOrDefault(cttn => cttn.MATIENNGHI == matn);
+        }
+        private void btnXoa_Click(object sender, EventArgs e)
+        {/*
             LOAITIENNGHI TimLTN = TimKiemMaLTN(txtMaLTN.Text);
             if (TimLTN == null)
             {
@@ -145,6 +152,62 @@ namespace P1
                     ReLoadDSLTN();
                     //Load lai data
 
+                }
+            }
+            */
+            LOAITIENNGHI TimLTN = TimKiemMaLTN(txtMaLTN.Text);
+
+            if (TimLTN == null)
+            {
+                MessageBox.Show("Mã loại Tiện nghi không tồn tại");
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show($"Bạn có chắc chắn xóa tiện nghi.",
+                        "Thong bao", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                //Dong y xoa 
+                if (result == DialogResult.Yes)
+                {
+                    List<CT_TIENNGHI> dscttn = Context.CT_TIENNGHI.ToList();
+                    List<TIENNGHI> dstn = Context.TIENNGHI.ToList();
+
+                    TIENNGHI locmtn = Timkiem(txtMaLTN.Text);
+                    
+                    if (locmtn != null)
+                    {
+                        string matn = locmtn.TENTIENNGHI.ToString();
+                        CT_TIENNGHI timmtn = Timkiemcttn(matn);
+                        if (timmtn != null)
+                        {
+                            foreach (CT_TIENNGHI cttn in dscttn)
+                            {
+                                if (cttn == timmtn)
+                                {
+                                  //Context.CT_TIENNGHI.Remove(cttn);
+                                    Context.SaveChanges();
+                                    //ReLoadSV();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (TIENNGHI tn in dstn)
+                            {
+                                if (tn == locmtn)
+                                {
+                                    //Context.TIENNGHI.Remove(tn);
+                                    Context.SaveChanges();
+                                    //ReLoadSV();
+                                }
+                            }
+                        }
+                    }
+                    Context.LOAITIENNGHI.Remove(TimLTN);
+                    //Luu lai thay doi
+                    MessageBox.Show("Xóa dịch vụ thành công");
+                    Context.SaveChanges();
+                    ReLoadDSLTN();
+                    RefeshData();
                 }
             }
         }

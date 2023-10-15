@@ -151,8 +151,8 @@ namespace P1
             {
                 MATIENNGHI = txtMatiennghi.Text,
                 TENTIENNGHI = txxTentnghi.Text,
-                GIATHUE = int.Parse(txtGiatiennghi.Text),
-                GIAMUA = int.Parse(txtGiathue.Text),
+                GIATHUE = int.Parse(txtGiathue.Text),
+                GIAMUA = int.Parse(txtGiatiennghi.Text),
                 TONKHO = int.Parse(txtTonKho.Text),
                 MALOAITIENNGHI = cmbLoaiTienNghi.SelectedValue.ToString(),
             };
@@ -249,32 +249,52 @@ namespace P1
             txtGiatiennghi.Text = dgvTiennghi.Rows[e.RowIndex].Cells[4].Value.ToString();
             txtGiathue.Text = dgvTiennghi.Rows[e.RowIndex].Cells[5].Value.ToString();
         }
-
+        private CT_TIENNGHI Timkiem(string matn)
+        {
+            return Context.CT_TIENNGHI.FirstOrDefault(cttn => cttn.MATIENNGHI == matn);
+        }
         private void btnxoati_Click(object sender, EventArgs e)
         {
-            if (rangbuoc() == false)
-                return;
+            
+            
+            //QuanlyCT_DICHVU qlctdv = new QuanlyCT_DICHVU();
             TIENNGHI TimTN = TimKiemMaTN(txtMatiennghi.Text);
+
             if (TimTN == null)
             {
-                MessageBox.Show("Mã số sinh viên không tồn tại");
+                MessageBox.Show("Mã Tiện nghi không tồn tại");
             }
             else
             {
-                DialogResult result = MessageBox.Show($"Ban co chac chan xoa tiện nghi {TimTN.TENTIENNGHI}",
+
+                DialogResult result = MessageBox.Show($"Bạn có chắc chắn xóa tiện nghi.",
                         "Thong bao", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 //Dong y xoa 
                 if (result == DialogResult.Yes)
                 {
+                    List<CT_TIENNGHI> dscttn = Context.CT_TIENNGHI.ToList();
+                    CT_TIENNGHI locmtn = Timkiem(txtMatiennghi.Text);
+                    if (locmtn != null)
+                    {
+                        foreach (CT_TIENNGHI cttn in dscttn)
+                        {
+                            if (cttn == locmtn)
+                            {
+                                Context.CT_TIENNGHI.Remove(cttn);
+                                Context.SaveChanges();
+                                //ReLoadSV();
+                            }
+                        }
+                    }
                     Context.TIENNGHI.Remove(TimTN);
                     //Luu lai thay doi
-                    MessageBox.Show("Xoa tiện nghi thanh cong");
+                    MessageBox.Show("Xóa dịch vụ thành công");
                     Context.SaveChanges();
                     ReLoadDSTN();
-                    //Load lai data
-
+                    RefeshData();
                 }
             }
+            
         }
 
         private void btnLammoiti_Click(object sender, EventArgs e)

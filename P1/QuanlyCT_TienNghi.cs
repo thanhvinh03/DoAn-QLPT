@@ -215,6 +215,8 @@ namespace P1
 
                 }
             }
+            
+
         }
 
         private void btnLammoi_Click(object sender, EventArgs e)
