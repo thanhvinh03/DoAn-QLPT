@@ -8,7 +8,7 @@ namespace P1.Models
     public partial class QLPTContextDB : DbContext
     {
         public QLPTContextDB()
-            : base("name=QLPTContextDB2")
+            : base("name=QLPTContextDB")
         {
         }
 
